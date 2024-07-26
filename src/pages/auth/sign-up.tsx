@@ -42,8 +42,8 @@ export function SignUp() {
     <>
       <Helmet title="Sign up" />
       <div className="p-8">
-        <Button variant="ghost" asChild className="absolute right-8 top-8">
-          <Link to="/sign-in">Login</Link>
+        <Button variant="link" asChild className="absolute right-8 top-8">
+          <Link to="/sign-in">Already have an account? Log in</Link>
         </Button>
         <div className="flex w-[350px] flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
