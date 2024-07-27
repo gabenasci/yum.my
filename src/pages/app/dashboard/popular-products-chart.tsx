@@ -12,7 +12,7 @@ import {
 const data = [
   { product: 'Pepperoni Pizza', amount: 40 },
   { product: 'Mussarella Pizza', amount: 30 },
-  { product: 'Margarita Pizza', amount: 50 },
+  { product: 'Margherita Pizza', amount: 50 },
   { product: 'Mushroom Pizza', amount: 16 },
   { product: 'Anchovy Pizza', amount: 12 },
 ]
@@ -57,8 +57,8 @@ const pieLabel = ({
       textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline="central"
     >
-      {data[index].product.length > 12
-        ? data[index].product.substring(0, 12).concat('...')
+      {data[index].product.length > 16
+        ? data[index].product.substring(0, 16).concat('...')
         : data[index].product}{' '}
       ({value})
     </text>
