@@ -1,16 +1,23 @@
-import { ChefHat, Home, Pizza, UtensilsCrossed } from 'lucide-react'
+import { Home, UtensilsCrossed } from 'lucide-react'
 
-import YummyLogo from '../../public/YummyLogo.svg'
+import YummyLogoDark from '../../public/YummyLogoDark.svg'
+import YummyLogoLight from '../../public/YummyLogoLight.svg'
 import { AccountMenu } from './account-menu'
 import { NavLink } from './nav-link'
+import { useTheme } from './theme/theme-provider'
 import { ThemeToggle } from './theme/theme-toggle'
 import { Separator } from './ui/separator'
 
 export function Header() {
+  const { resolvedTheme } = useTheme()
   return (
     <div className="border-b">
       <div className="flex h-16 items-center gap-6 px-6">
-        <img src={YummyLogo} alt="" className="h-8 w-8" />
+        <img
+          src={resolvedTheme === 'light' ? YummyLogoLight : YummyLogoDark}
+          alt=""
+          className="h-8 w-8"
+        />
         <Separator orientation="vertical" className="h-6" />
 
         <nav className="flex items-center space-x-4 lg:space-x-6">
