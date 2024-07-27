@@ -41,7 +41,6 @@ export function OrderDetails() {
               <TableCell className="text-muted-foreground">Client</TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className="font-medium text-muted-foreground">
                     Frank Williams
                   </span>
@@ -55,7 +54,6 @@ export function OrderDetails() {
               </TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className="font-medium text-muted-foreground">
                     678-433-2314
                   </span>
@@ -67,7 +65,6 @@ export function OrderDetails() {
               <TableCell className="text-muted-foreground">E-mail</TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className="font-medium text-muted-foreground">
                     frankwill@gmail.com
                   </span>
@@ -81,7 +78,6 @@ export function OrderDetails() {
               </TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className="font-medium text-muted-foreground">
                     15 minutes ago
                   </span>
@@ -117,11 +113,8 @@ export function OrderDetails() {
           <TableFooter>
             <TableRow>
               <TableCell colSpan={3}>Order total</TableCell>
-              <TableCell className="text-right font-medium">
-                $97.97
-              </TableCell>
+              <TableCell className="text-right font-medium">$97.97</TableCell>
             </TableRow>
-
           </TableFooter>
         </Table>
       </div>
