@@ -18,11 +18,11 @@ type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn() {
   const [searchParams] = useSearchParams()
-  
+
   const { register, handleSubmit, formState } = useForm<SignInForm>({
     defaultValues: {
       email: searchParams.get('email') ?? '',
-    }
+    },
   })
   const { isSubmitting } = formState
 

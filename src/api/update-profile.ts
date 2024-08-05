@@ -1,5 +1,3 @@
-import { Update } from 'vite/types/hmrPayload.js'
-
 import { api } from '../lib/axios'
 
 interface UpdateProfileBody {
