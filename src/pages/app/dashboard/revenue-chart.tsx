@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { subDays } from 'date-fns'
+import { Loader2 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import {
@@ -49,7 +50,7 @@ export function RevenueChart() {
 
   return (
     <Card className="col-span-6">
-      <CardHeader className="flex flex-row items-center justify-between pb-8">
+      <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-8">
         <div className="space-y-1">
           <CardTitle className="text-base font-medium">Revenue</CardTitle>
           <CardDescription>
@@ -57,13 +58,13 @@ export function RevenueChart() {
           </CardDescription>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Label>Date Range</Label>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <Label className="sm:mb-0">Date Range</Label>
           <DateRangePicker date={dateRange} onDateChange={setDateRange} />
         </div>
       </CardHeader>
       <CardContent>
-        {dailyRevenueInPeriod && (
+        {dailyRevenueInPeriod ? (
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={chartData} style={{ fontSize: 12 }}>
               <XAxis dataKey="date" tickLine={false} axisLine={false} dy={16} />
@@ -88,6 +89,10 @@ export function RevenueChart() {
               />
             </LineChart>
           </ResponsiveContainer>
+        ) : (
+          <div className="flex h-[240px] w-full items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
         )}
       </CardContent>
     </Card>

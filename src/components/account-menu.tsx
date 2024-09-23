@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { Building, ChevronDown, LogOut } from 'lucide-react'
+import { Building, ChevronDown, LogOut, Sun, Moon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 import { getManagedRestaurant } from '@/api/get-managed-restaurant'
@@ -18,9 +18,11 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Skeleton } from './ui/skeleton'
+import { useTheme } from './theme/theme-provider'
 
 export function AccountMenu() {
   const navigate = useNavigate()
+  const { setTheme, theme } = useTheme()
 
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ['profile'],
@@ -42,6 +44,10 @@ export function AccountMenu() {
     },
   })
 
+  const truncateName = (name: string) => {
+    return name.length > 10 ? name.slice(0, 10) + '...' : name
+  }
+
   return (
     <Dialog>
       <DropdownMenu>
@@ -53,7 +59,7 @@ export function AccountMenu() {
             {isLoadingManagedRestaurant ? (
               <Skeleton className="h-4 w-40" />
             ) : (
-              managedRestaurant?.name
+              truncateName(managedRestaurant?.name || '')
             )}
             <ChevronDown className="h-4 w-4" />
           </Button>
@@ -79,9 +85,17 @@ export function AccountMenu() {
           <DialogTrigger asChild>
             <DropdownMenuItem>
               <Building className="mr-2 h-4 w-4" />
-              <span>Perfil da loja</span>
+              <span>Store profile</span>
             </DropdownMenuItem>
           </DialogTrigger>
+          <DropdownMenuItem onSelect={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+            {theme === 'light' ? (
+              <Moon className="mr-2 h-4 w-4" />
+            ) : (
+              <Sun className="mr-2 h-4 w-4" />
+            )}
+            <span>Toggle theme</span>
+          </DropdownMenuItem>
           <DropdownMenuItem
             asChild
             disabled={isSigningOut}
@@ -89,7 +103,7 @@ export function AccountMenu() {
           >
             <button className="w-full" onClick={() => signOutFn()}>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Sair</span>
+              <span>Sign out</span>
             </button>
           </DropdownMenuItem>
         </DropdownMenuContent>

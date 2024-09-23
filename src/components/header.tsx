@@ -13,26 +13,30 @@ export function Header() {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center gap-6 px-6">
-        <img
-          src={resolvedTheme === 'light' ? YummyLogoLight : YummyLogoDark}
-          alt=""
-          className="h-8 w-8"
-        />
+        <a href="/">
+          <img
+            src={resolvedTheme === 'light' ? YummyLogoLight : YummyLogoDark}
+            alt=""
+            className="h-8 w-8"
+          />
+        </a>
         <Separator orientation="vertical" className="h-6" />
 
         <nav className="flex items-center space-x-4 lg:space-x-6">
-          <NavLink to="/">
+          <NavLink to="/" className="items-center gap-1.5 hidden sm:flex">
             <Home className="h-4 w-4" />
-            Home
+            <span>Home</span>
           </NavLink>
-          <NavLink to="/orders">
+          <NavLink to="/orders" className="flex items-center gap-1.5">
             <UtensilsCrossed className="h-4 w-4" />
-            Orders
+            <span>Orders</span>
           </NavLink>
         </nav>
 
         <div className="ml-auto flex items-center gap-2">
-          <ThemeToggle />
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
           <AccountMenu />
         </div>
       </div>
