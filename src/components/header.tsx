@@ -12,7 +12,7 @@ export function Header() {
   const { resolvedTheme } = useTheme()
   return (
     <div className="border-b">
-      <div className="flex h-16 items-center gap-6 px-6">
+      <div className="flex z-1 h-16 items-center gap-6 px-6">
         <a href="/">
           <img
             src={resolvedTheme === 'light' ? YummyLogoLight : YummyLogoDark}

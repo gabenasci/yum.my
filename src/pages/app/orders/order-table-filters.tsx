@@ -14,6 +14,8 @@ import {
   SelectValue,
 } from '../../../components/ui/select'
 
+import { mockOrders } from './mockOrders' // Import mock data
+
 const orderFiltersSchema = z.object({
   orderId: z.string().optional(),
   customerName: z.string().optional(),
@@ -63,6 +65,17 @@ export function OrderTableFilters() {
 
       return state
     })
+
+    // Filter mock data based on the filters
+    const filteredOrders = mockOrders.filter((order) => {
+      return (
+        (!orderId || order.orderId.includes(orderId)) &&
+        (!customerName || order.customerName.toLowerCase().includes(customerName.toLowerCase())) &&
+        (status === 'all' || order.status === status)
+      )
+    })
+
+    console.log('Filtered Orders:', filteredOrders)
   }
 
   function handleClearFilters() {
@@ -85,17 +98,17 @@ export function OrderTableFilters() {
   return (
     <form
       onSubmit={handleSubmit(handleFilter)}
-      className="flex items-center gap-2"
+      className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0"
     >
       <span className="text-sm font-semibold">Filters:</span>
       <Input
         placeholder="Order ID"
-        className="h-8 w-auto"
+        className="h-8 w-full sm:w-auto"
         {...register('orderId')}
       />
       <Input
-        placeholder="Client name"
-        className="h-8 w-[320px]"
+        placeholder="Client Name"
+        className="h-8 w-full sm:w-[320px]"
         {...register('customerName')}
       />
 
@@ -110,7 +123,7 @@ export function OrderTableFilters() {
             value={value}
             disabled={disabled}
           >
-            <SelectTrigger className="h-8 w-[180px]">
+            <SelectTrigger className="h-8 w-full sm:w-[180px]">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -125,9 +138,9 @@ export function OrderTableFilters() {
         )}
       />
 
-      <Button type="submit" variant="secondary" size="xs">
+      <Button type="submit" variant="secondary" size="xs" className="w-full sm:w-auto">
         <Search className="mr-2 h-4 w-4" />
-        Filter results
+        Filter Results
       </Button>
 
       <Button
@@ -135,9 +148,10 @@ export function OrderTableFilters() {
         type="button"
         variant="outline"
         size="xs"
+        className="w-full sm:w-auto"
       >
         <X className="mr-2 h-4 w-4" />
-        Clear filter
+        Clear Filter
       </Button>
     </form>
   )

@@ -11,13 +11,13 @@ import {
   CardTitle,
 } from '../../../components/ui/card'
 
-// const data = [
-//   { product: 'Pepperoni Pizza', amount: 40 },
-//   { product: 'Mussarella Pizza', amount: 30 },
-//   { product: 'Margherita Pizza', amount: 50 },
-//   { product: 'Mushroom Pizza', amount: 16 },
-//   { product: 'Anchovy Pizza', amount: 12 },
-// ]
+const mockData = [
+  { product: 'Pepperoni Pizza', amount: 40 },
+  { product: 'Mussarella Pizza', amount: 30 },
+  { product: 'Margherita Pizza', amount: 50 },
+  { product: 'Mushroom Pizza', amount: 16 },
+  { product: 'Bacon Pizza', amount: 12 },
+]
 
 const COLORS = [
   colors.sky[500],
@@ -38,10 +38,10 @@ interface PieLabelProps {
 }
 
 export function PopularProductsChart() {
-  const { data: popularProducts } = useQuery({
-    queryKey: ['metrics', 'popular-products'],
-    queryFn: getPopularProducts,
-  })
+  // const { data: popularProducts } = useQuery({
+  //   queryKey: ['metrics', 'popular-products'],
+  //   queryFn: getPopularProducts,
+  // })
 
   const pieLabel = ({
     cx,
@@ -53,7 +53,8 @@ export function PopularProductsChart() {
     index,
   }: PieLabelProps) => {
     const RADIAN = Math.PI / 180
-    const radius = 12 + innerRadius + (outerRadius - innerRadius)
+    const isMobile = window.innerWidth < 640 // Assuming 640px as the breakpoint for mobile
+    const radius = (isMobile ? 1 : 10) + innerRadius + (outerRadius - innerRadius)
     const x = cx + radius * Math.cos(-midAngle * RADIAN)
     const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
@@ -61,21 +62,20 @@ export function PopularProductsChart() {
       <text
         x={x}
         y={y}
-        className="fill-muted-foreground text-xs"
+        className="fill-muted-foreground text-[10px] sm:text-xs"
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
       >
-        {popularProducts &&
-          (popularProducts[index].product.length > 16
-            ? popularProducts[index].product.substring(0, 16).concat('...')
-            : popularProducts[index].product)}{' '}
+        {mockData &&
+          (mockData[index].product.length > 16
+            ? mockData[index].product.substring(0, 16).concat('...')
+            : mockData[index].product)}{' '}
         ({value})
       </text>
     )
   }
-
   return (
-    <Card className="col-span-3">
+    <Card className="col-span-3 h-full">
       <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
@@ -85,11 +85,11 @@ export function PopularProductsChart() {
         </div>
       </CardHeader>
       <CardContent>
-        {popularProducts ? (
+        {mockData ? (
           <ResponsiveContainer width="100%" height={240}>
-            <PieChart style={{ fontSize: 12 }}>
+            <PieChart className="scale-[80%] sm:scale-100" style={{ width: '100%', fontSize: 12 }}>
               <Pie
-                data={popularProducts}
+                data={mockData}
                 dataKey="amount"
                 nameKey="product"
                 cx="50%"
@@ -100,7 +100,7 @@ export function PopularProductsChart() {
                 label={pieLabel}
                 labelLine={false}
               >
-                {popularProducts.map((_, index) => {
+                {mockData.map((_, index) => {
                   return (
                     <Cell
                       key={`cell-${index}`}
